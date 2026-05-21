@@ -1,60 +1,48 @@
+## RoleScout — File Structure
+
+> Auto-generated overview. See [README.md](README.md) for the full documentation.
+
 ```
-rolescout/
-│
+RoleScout/
 ├── backend/
-│ ├── app/
-│ │ ├── **init**.py
-│ │ ├── main.py # FastAPI app, routes
-│ │ ├── config.py # env vars, settings
-│ │ │
-│ │ ├── schemas/ # Pydantic models (move from notebook)
-│ │ │ ├── **init**.py
-│ │ │ ├── jd.py # JDParserOutput, Skills, Flag
-│ │ │ ├── profile.py # Profile, Skill, Project
-│ │ │ ├── research.py # CompanyResearcher, RoleResearcher, FitAnalyzer
-│ │ │ └── state.py # ScoutState
-│ │ │
-│ │ ├── agents/ # Node functions (move from notebook)
-│ │ │ ├── **init**.py
-│ │ │ ├── parser.py # parse_jd, should_continue
-│ │ │ ├── company.py # company_researcher
-│ │ │ ├── role.py # role_researcher
-│ │ │ ├── fit.py # fit_analyzer
-│ │ │ └── synthesizer.py # synthesizer
-│ │ │
-│ │ ├── tools/
-│ │ │ ├── **init**.py
-│ │ │ └── search.py # web_search, search_news
-│ │ │
-│ │ └── graph/
-│ │ ├── **init**.py
-│ │ └── orchestration.py # graph builder, compile
-│ │
-│ ├── tests/
-│ │ ├── test_parser.py
-│ │ ├── test_agents.py
-│ │ └── test_graph.py
-│ │
-│ ├── notebooks/
-│ │ └── rolescout.ipynb # your cleaned notebook lives here
-│ │
-│ ├── .env.example # template — never commit .env
-│ ├── requirements.txt
-│ └── Dockerfile
-│
+│   ├── app/
+│   │   ├── agents/              # AI agent implementations
+│   │   │   ├── parser.py        # JD parsing + human feedback routing
+│   │   │   ├── company.py       # Company research (ReAct loop with web search)
+│   │   │   ├── role.py          # Role research (ReAct loop with web search)
+│   │   │   ├── fit.py           # Candidate-JD fit scoring
+│   │   │   └── synthesizer.py   # Final report synthesis from all agents
+│   │   ├── graph/
+│   │   │   └── orchestration.py # LangGraph state machine (nodes, edges, checkpointer)
+│   │   ├── schemas/
+│   │   │   ├── jd.py            # JDParserOutput, Skills, Flags
+│   │   │   ├── profile.py       # Profile, Project, DeploymentStatus
+│   │   │   ├── research.py      # CompanyResearcher, RoleResearcher, FitAnalyzer
+│   │   │   └── state.py         # ScoutState (shared graph state)
+│   │   ├── tools/
+│   │   │   └── search.py        # DuckDuckGo web_search + search_news tools
+│   │   ├── config.py            # LLM + dotenv config
+│   │   ├── main.py              # FastAPI app (CORS, auth, /analyze endpoints)
+│   │   └── schema.py            # API request/response models
+│   ├── .env.example             # Required environment variables
+│   ├── Dockerfile               # Python 3.11 + uvicorn
+│   └── requirements.txt
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── pages/
-│ │ └── App.jsx
-│ ├── package.json
-│ └── Dockerfile
-│
-├── .github/
-│ └── workflows/
-│ └── ci.yml # runs tests on every push
-│
-├── .gitignore
-├── docker-compose.yml # spins up backend + frontend together
-└── README.md
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── ProfilePage.tsx  # Candidate profile form
+│   │   │   ├── AnalyzePage.tsx  # JD input → parse → review → analyze
+│   │   │   └── ReportPage.tsx   # Final report viewer (markdown)
+│   │   ├── api.ts               # Typed fetch wrapper with API key auth
+│   │   ├── types.ts             # Shared TypeScript interfaces
+│   │   ├── storage.ts           # localStorage persistence
+│   │   ├── App.tsx              # React Router + layout
+│   │   └── main.tsx             # Entry point
+│   ├── nginx.conf               # Production nginx config (SPA routing)
+│   ├── .env.example             # Required environment variables
+│   └── Dockerfile               # Node build → nginx serve
+├── docker-compose.yml           # Local multi-container setup
+├── CONTRIBUTING.md              # How to contribute
+├── LICENSE                      # GPL-3.0
+└── README.md                    # Full project documentation
 ```
