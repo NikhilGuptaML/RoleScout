@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import Send
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.sqlite import SqliteSaver
 from schemas.state import ScoutState
 from agents.parser import parse_jd, human_feedback, should_continue
 from agents.company import company_researcher
@@ -50,6 +50,6 @@ builder.add_edge("role_researcher", "synthesize")
 builder.add_edge("fit_analyzer", "synthesize")
 builder.add_edge("synthesize", END)
 
-memory = MemorySaver()
+memory = SqliteSaver.from_conn_string("./rolescout.db")
 graph = builder.compile(interrupt_before=["Human Feedback"], checkpointer=memory)
 
