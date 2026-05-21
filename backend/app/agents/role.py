@@ -1,8 +1,8 @@
 from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
-from schemas.state import ScoutState
-from schemas.research import RoleResearcher
-from config import config
-from tools.search import tools, web_search, search_news
+from app.schemas.state import ScoutState
+from app.schemas.research import RoleResearcher
+from app.config import config
+from app.tools.search import tools, web_search, search_news
 
 ROLE_RESEARCHER_INSTRUCTION = """
 You are a Role Research Agent. Your job is to research what a specific role actually involves

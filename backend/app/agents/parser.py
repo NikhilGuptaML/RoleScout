@@ -1,7 +1,7 @@
 from langchain_core.messages import SystemMessage, HumanMessage
-from schemas.state import ScoutState
-from schemas.jd import JDParserOutput
-from config import config
+from app.schemas.state import ScoutState
+from app.schemas.jd import JDParserOutput
+from app.config import config
 
 PARSER_INSTRUCTION = """
 You are an expert hiring intelligence and job description parsing system.

@@ -1,5 +1,5 @@
 langgraph
-langchain-groq
+langchain-openrouter
 langchain-core
 notebook
 python-dotenv
@@ -9,3 +9,4 @@ duckduckgo-search
 langchain-community
 ddgs
 fastapi[standard]
+langgraph-checkpoint-sqlite

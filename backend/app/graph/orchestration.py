@@ -1,12 +1,12 @@
 from langgraph.graph import StateGraph, START, END
 from langgraph.types import Send
 from langgraph.checkpoint.sqlite import SqliteSaver
-from schemas.state import ScoutState
-from agents.parser import parse_jd, human_feedback, should_continue
-from agents.company import company_researcher
-from agents.role import role_researcher
-from agents.fit import fit_analyzer
-from agents.synthesizer import synthesizer
+from app.schemas.state import ScoutState
+from app.agents.parser import parse_jd, human_feedback, should_continue
+from app.agents.company import company_researcher
+from app.agents.role import role_researcher
+from app.agents.fit import fit_analyzer
+from app.agents.synthesizer import synthesizer
 
 def spawn_node(state: ScoutState) -> ScoutState:
     """Passthrough node. Routing happens in spawn_researchers."""
@@ -50,6 +50,9 @@ builder.add_edge("role_researcher", "synthesize")
 builder.add_edge("fit_analyzer", "synthesize")
 builder.add_edge("synthesize", END)
 
-memory = SqliteSaver.from_conn_string("./rolescout.db")
+import sqlite3
+
+_conn = sqlite3.connect("./rolescout.db", check_same_thread=False)
+memory = SqliteSaver(conn=_conn)
 graph = builder.compile(interrupt_before=["Human Feedback"], checkpointer=memory)
 

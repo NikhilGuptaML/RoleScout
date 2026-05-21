@@ -2,13 +2,28 @@ import os
 import uuid
 
 from fastapi import FastAPI, Security, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import APIKeyHeader
 
-from graph.orchestration import graph
-from schema import AnalyzeRequest, ResumeRequest
+from app.graph.orchestration import graph
+from app.schema import AnalyzeRequest, ResumeRequest
 import uvicorn
 
 app = FastAPI()
+
+# ── CORS ────────────────────────────────────────────────────
+# Set CORS_ORIGINS in .env, e.g. "https://frontend-xxx.up.railway.app"
+# Multiple origins can be comma-separated.
+_origins = os.getenv("CORS_ORIGINS", "*")
+allow_origins = [o.strip() for o in _origins.split(",")]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allow_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ── API-key auth ────────────────────────────────────────────
 API_KEY = os.getenv("API_KEY")

@@ -1,6 +1,6 @@
 from langchain_core.messages import SystemMessage, HumanMessage
-from schemas.state import ScoutState
-from config import config
+from app.schemas.state import ScoutState
+from app.config import config
 
 SYNTHESIZER_INSTRUCTION = """
 You are a Job Hunt Intelligence Agent.

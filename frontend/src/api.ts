@@ -5,7 +5,8 @@ import type {
   ResumeResponse,
 } from './types';
 
-const BASE = '/analyze';
+const API_URL = import.meta.env.VITE_API_URL ?? '';
+const BASE = `${API_URL}/analyze`;
 const API_KEY = import.meta.env.VITE_API_KEY ?? '';
 
 const authHeaders: Record<string, string> = {

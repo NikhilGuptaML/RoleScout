@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from schemas.profile import Profile
+from app.schemas.profile import Profile
 
 class AnalyzeRequest(BaseModel):
     job_desc: str

@@ -1,7 +1,7 @@
 from langchain_core.messages import SystemMessage, HumanMessage
-from schemas.state import ScoutState
-from schemas.research import FitAnalyzer
-from config import config
+from app.schemas.state import ScoutState
+from app.schemas.research import FitAnalyzer
+from app.config import config
 
 FIT_ANALYZER_INSTRUCTION = """
 You are an expert hiring intelligence and candidate fit evaluation system.

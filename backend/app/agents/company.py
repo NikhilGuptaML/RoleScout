@@ -1,8 +1,8 @@
 from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
-from schemas.state import ScoutState
-from schemas.research import CompanyResearcher
-from config import config
-from tools.search import tools, web_search, search_news
+from app.schemas.state import ScoutState
+from app.schemas.research import CompanyResearcher
+from app.config import config
+from app.tools.search import tools, web_search, search_news
 
 COMPANY_RESEARCHER_INSTRUCTION = """
 You are a Company Research Agent. Your job is to thoroughly research a company for a job applicant.
