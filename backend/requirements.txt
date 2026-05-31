@@ -3,7 +3,7 @@ langchain-openrouter
 langchain-core
 python-dotenv
 pydantic
-duckduckgo-search
+ddgs
 langchain-community
 fastapi[standard]
 langgraph-checkpoint-sqlite
