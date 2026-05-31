@@ -1,12 +1,9 @@
 langgraph
 langchain-openrouter
 langchain-core
-notebook
 python-dotenv
 pydantic
-langgraph-cli[inmem]
-duckduckgo-search 
+duckduckgo-search
 langchain-community
-ddgs
 fastapi[standard]
 langgraph-checkpoint-sqlite

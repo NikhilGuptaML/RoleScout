@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import type { ParsedJD } from '../types';
 import { loadProfile } from '../storage';
@@ -129,13 +129,13 @@ export default function AnalyzePage() {
   const existingParsedJD = (location.state as { parsedJD?: ParsedJD })?.parsedJD;
 
   // Hydrate from navigation state if present
-  useState(() => {
+  useEffect(() => {
     if (existingThreadId && existingParsedJD) {
       setThreadId(existingThreadId);
       setParsedJD(existingParsedJD);
       setStage('review');
     }
-  });
+  }, [existingThreadId, existingParsedJD]);
 
   const handleAnalyze = async () => {
     const profile = loadProfile();

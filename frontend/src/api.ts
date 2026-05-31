@@ -5,13 +5,10 @@ import type {
   ResumeResponse,
 } from './types';
 
-const API_URL = import.meta.env.VITE_API_URL ?? '';
-const BASE = `${API_URL}/analyze`;
-const API_KEY = import.meta.env.VITE_API_KEY ?? '';
+const BASE = '/api/analyze';
 
-const authHeaders: Record<string, string> = {
+const jsonHeaders: Record<string, string> = {
   'Content-Type': 'application/json',
-  'X-API-Key': API_KEY,
 };
 
 export async function analyzeJD(
@@ -19,7 +16,7 @@ export async function analyzeJD(
 ): Promise<AnalyzeResponse> {
   const res = await fetch(BASE, {
     method: 'POST',
-    headers: authHeaders,
+    headers: jsonHeaders,
     body: JSON.stringify(body),
   });
   if (!res.ok) {
@@ -34,7 +31,7 @@ export async function resumeAnalysis(
 ): Promise<ResumeResponse> {
   const res = await fetch(`${BASE}/resume`, {
     method: 'POST',
-    headers: authHeaders,
+    headers: jsonHeaders,
     body: JSON.stringify(body),
   });
   if (!res.ok) {
